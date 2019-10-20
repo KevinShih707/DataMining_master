@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Oct 12 10:50:51 2016
-
-@author: nancynan
-"""
 
 from collections import defaultdict
 
@@ -29,17 +24,17 @@ class Apriori:
                 lines[0] = 'age:'+lines[0]
                 lines[1] = 'workclass:'+lines[1]
                 lines[2] = 'fnlwgt:'+lines[2]
-                lines[3] = 'education:'+lines[3]
-                lines[4] = 'ed_num:'+lines[4]
-                lines[5] = 'marital-status:'+lines[5]
-                lines[6] = 'occupation:'+lines[6]
-                lines[7] = 'relationship:'+lines[7]
-                lines[8] = 'race:'+lines[8]
-                lines[9] = 'sex:'+lines[9]
-                lines[10] = 'capital-gain:'+lines[10]
-                lines[11] = 'capital-loss:'+lines[11]
-                lines[12] = 'hrs-per-week:'+lines[12]
-                lines[13] = 'native-country:'+lines[13]
+                # lines[3] = 'education:'+lines[3]
+                # lines[4] = 'ed_num:'+lines[4]
+                # lines[5] = 'marital-status:'+lines[5]
+                # lines[6] = 'occupation:'+lines[6]
+                # lines[7] = 'relationship:'+lines[7]
+                # lines[8] = 'race:'+lines[8]
+                # lines[9] = 'sex:'+lines[9]
+                # lines[10] = 'capital-gain:'+lines[10]
+                # lines[11] = 'capital-loss:'+lines[11]
+                # lines[12] = 'hrs-per-week:'+lines[12]
+                # lines[13] = 'native-country:'+lines[13]
                 yield lines
                 
     def find_C1(self):
@@ -115,7 +110,7 @@ class Apriori:
 
 if __name__ == '__main__':
 #    begin1=time.time()
-    input_file = 'adult_data.csv'
+    input_file = 'data_ntrans_10_tlen_50.csv'
     
     #!!you can change into any number in (0,1)
     min_sup = 0.5
