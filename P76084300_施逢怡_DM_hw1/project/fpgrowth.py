@@ -1,16 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Oct 16 21:30:54 2016
-
-@author: nancynan
-"""
-
 from collections import defaultdict, namedtuple
 import time
 
 class fp:
     def __init__(self, minimum_support):
-        self.input_file = 'Result.csv'
+        self.input_file = 'adult_data.csv'
         self.minimum_support = minimum_support
 
     def run(self):
@@ -20,7 +14,7 @@ class fp:
     def printResults(self):
         i = 1
         for itemset, support in self.results:
-            print ('Item %d: %s, Support: %.3f' % (i, ', '.join(itemset), float(support) / self.transaction_size))
+            print ('Rule %d: %s, Support: %.3f' % (i, ' => '.join(itemset), float(support) / self.transaction_size))
             i += 1
 
     def writeResults(self):
@@ -34,19 +28,15 @@ class fp:
                 lines = line.strip().split(',')
                 lines[0] = 'age:'+lines[0]
                 lines[1] = 'workclass:'+lines[1]
-                lines[2] = 'fnlwgt:'+lines[2]
-                lines[3] = 'education:'+lines[3]
-                lines[4] = 'ed_num:'+lines[4]
-                lines[5] = 'marital-status:'+lines[5]
-                lines[6] = 'occupation:'+lines[6]
-                lines[7] = 'relationship:'+lines[7]
-                lines[8] = 'race:'+lines[8]
-                lines[9] = 'sex:'+lines[9]
-                lines[10] = 'capital-gain:'+lines[10]
-                lines[11] = 'capital-loss:'+lines[11]
-                lines[12] = 'hrs-per-week:'+lines[12]
-                lines[13] = 'native-country:'+lines[13]
-                lines[14] = 'salary:'+lines[14]
+                lines[2] = 'education:'+lines[2]
+                lines[3] = 'marital-status:'+lines[3]
+                lines[4] = 'occupation:'+lines[4]
+                lines[5] = 'relationship:'+lines[5]
+                lines[6] = 'race:'+lines[6]
+                lines[7] = 'sex:'+lines[7]
+                lines[8] = 'hrs-per-week:'+lines[8]
+                lines[9] = 'native-country:'+lines[9]
+                lines[10] = 'salary:'+lines[10]
                 yield lines
 
     def find_frequent_itemsets(self,transactions,include_support=False):
@@ -317,13 +307,11 @@ class treenode(object):
         return tuple(self._children.itervalues())
 
 if __name__ == '__main__':
-#    begin1=time.time()
     #!!you can change into any number in (0,1)
-    f = fp(0.5)
+    f = fp(0.8)
     f.run()
     f.printResults()
 
     # !!add # below if don't want csv file
-    f.writeResults()
-#    stop1=time.time()
-#    print ('fp takes',(stop1-begin1))
+    #f.writeResults()
+

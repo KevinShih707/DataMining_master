@@ -1,126 +1,190 @@
-# -*- coding: utf-8 -*-
 
-from collections import defaultdict
+import itertools
+#   This function generates the first candidate set using the dataset
+def generateC1(dataSet):
+    productDict = {}
+    returneSet = []
+    for data in dataSet:
+        for product in data:
+            if product not in productDict:
+               productDict[product] = 1
+            else:
+                 productDict[product] = productDict[product] + 1
+    for key in productDict:
+        tempArray = []
+        tempArray.append(key)
+        returneSet.append(tempArray)
+        returneSet.append(productDict[key])
+        tempArray = []
+    return returneSet
 
-import time
-#os.system('clear')
+#   This function creates Frequent item sets by taking candidate sets as input
+#   At the end, this function calls generateCandidatSets by feeding the output of the
+#   current function as the input of the other function
+def generateFrequentItemSet(CandidateList, noOfTransactions, minimumSupport, dataSet, fatherFrequentArray):
+    frequentItemsArray = []
+    for i in range(len(CandidateList)):
+        if i%2 != 0:
+            support = (CandidateList[i] * 1.0 / noOfTransactions) * 100
+            if support >= minimumSupport:
+                frequentItemsArray.append(CandidateList[i-1])
+                frequentItemsArray.append(CandidateList[i])
+            else:
+                eleminatedItemsArray.append(CandidateList[i-1])
 
-class Apriori:
-    
-    
-    def __init__(self, input_file, min_sup):
-        self.input_file = input_file
-        self.min_sup = min_sup
-        self.translist = []
-        self.items_with_sup = []
-        self.freqset = defaultdict(int)
-        self.enlarged = {}
-    
-    def _readFile(self):
-        with open(self.input_file, 'r') as f:
-            for line in f:
-                #print(line)
-                lines = line.strip().split(',')
-                lines[0] = 'age:'+lines[0]
-                lines[1] = 'workclass:'+lines[1]
-                lines[2] = 'fnlwgt:'+lines[2]
-                lines[3] = 'education:'+lines[3]
-                lines[4] = 'ed_num:'+lines[4]
-                lines[5] = 'marital-status:'+lines[5]
-                lines[6] = 'occupation:'+lines[6]
-                lines[7] = 'relationship:'+lines[7]
-                lines[8] = 'race:'+lines[8]
-                lines[9] = 'sex:'+lines[9]
-                lines[10] = 'capital-gain:'+lines[10]
-                lines[11] = 'capital-loss:'+lines[11]
-                lines[12] = 'hrs-per-week:'+lines[12]
-                lines[13] = 'native-country:'+lines[13]
-                lines[14] = 'salary:'+lines[14]
-                yield lines
-                
-    def find_C1(self):
-        C1=set()
-        for row in self._readFile():
-            rowi=frozenset(row)
-            self.translist.append(rowi)
-            for i in rowi:
-                C1.add(frozenset([i]))
-        return C1
-                    
-    
-    def prunestep(self,C):
-        L=set()
-        freqsetloc = defaultdict(int)
+    for k in frequentItemsArray:
+        fatherFrequentArray.append(k)
 
-        for item in C:
-            for trans in self.translist:
-                if item.issubset(trans):
-                    self.freqset[item]+=1
-                    freqsetloc[item]+=1
-        for key,value in freqsetloc.items():
-            support=float(value)/len(self.translist)
-            if support>=min_sup:
-                L.add(key)
-        return L
-        
-    def Support(self, item):
-        return float(self.freqset[item]) / len(self.translist)    
-        
-    def joinstep(self, itemset, length):
-        Ck=set()
-        for i in itemset:
-            for j in itemset:
-                joinres=i.union(j)
-                if len(joinres)==length:
-                    Ck.add(joinres)
-        return Ck
-                
-    def run(self):
-        C1=self.find_C1()
-        Lk=self.prunestep(C1)
-        k=2
-        empset=set([])
+    if len(frequentItemsArray) == 2 or len(frequentItemsArray) == 0:
+        #print("This will be returned")
+        returnArray = fatherFrequentArray
+        return returnArray
 
-        while (Lk!=empset):
-            self.enlarged[k-1]=Lk
-            nextC=self.joinstep(Lk,k)
-            nextL=self.prunestep(nextC)
-            Lk=nextL
-            k+=1
-            
-        for value in self.enlarged.values():
-            for item in value:
-                self.items_with_sup.append(
-                (tuple(item), self.Support(item)))
-                    
-    def printitembysup(self):
-            i = 1
-            for item, support in sorted(
-            self.items_with_sup, key=lambda i: i[1],
-            reverse=True):
-                print ('Item %d: %s, Support: %.3f' % (i, str(item), support))
-                i += 1
-            
-    def writefreqpat(self):
-        with open('apriori_output.csv', 'w') as f:
-            for item, support in sorted(
-            self.items_with_sup, key=lambda i: i[1],
-            reverse=True):
-                f.write('%.3f, %s\n' % (support, ','.join(item)))
-    
+    else:
+        generateCandidateSets(dataSet, eleminatedItemsArray, frequentItemsArray, noOfTransactions, minimumSupport)
 
-if __name__ == '__main__':
-#    begin1=time.time()
-    input_file = 'adult_data.csv'
-    
-    #!!you can change into any number in (0,1)
-    min_sup = 0.5
+#   This function creates Candidate sets by taking frequent sets as the input
+#   At the end, this function calls generateFrequentItemSets by feeding the output of the
+#   crrent function as the input of the other function
+def generateCandidateSets(dataSet, eleminatedItemsArray, frequentItemsArray, noOfTransactions, minimumSupport):
+    onlyElements = []
+    arrayAfterCombinations = []
+    candidateSetArray = []
+    for i in range(len(frequentItemsArray)):
+        if i%2 == 0:
+            onlyElements.append(frequentItemsArray[i])
+    for item in onlyElements:
+        tempCombinationArray = []
+        k = onlyElements.index(item)
+        for i in range(k + 1, len(onlyElements)):
+            for j in item:
+                if j not in tempCombinationArray:
+                    tempCombinationArray.append(j)
+            for m in onlyElements[i]:
+                if m not in tempCombinationArray:
+                    tempCombinationArray.append(m)
+            arrayAfterCombinations.append(tempCombinationArray)
+            tempCombinationArray = []
+    sortedCombinationArray = []
+    uniqueCombinationArray = []
+    for i in arrayAfterCombinations:
+        sortedCombinationArray.append(sorted(i))
+    for i in sortedCombinationArray:
+        if i not in uniqueCombinationArray:
+            uniqueCombinationArray.append(i)
+    arrayAfterCombinations = uniqueCombinationArray
+    for item in arrayAfterCombinations:
+        count = 0
+        for transaction in dataSet:
+            if set(item).issubset(set(transaction)):
+                count = count + 1
+        if count != 0:
+            candidateSetArray.append(item)
+            candidateSetArray.append(count)
+    generateFrequentItemSet(candidateSetArray, noOfTransactions, minimumSupport, dataSet, fatherFrequentArray)
 
-    a = Apriori(input_file, min_sup)
-    a.run()
-    a.printitembysup()
+#   This function takes all the frequent sets as the input and generates Association Rules
+def generateAssociationRule(freqSet):
+    associationRule = []
+    for item in freqSet:
+        if isinstance(item, list):
+            if len(item) != 0:
+                length = len(item) - 1
+                while length > 0:
+                    combinations = list(itertools.combinations(item, length))
+                    temp = []
+                    LHS = []
+                    for RHS in combinations:
+                        LHS = set(item) - set(RHS)
+                        temp.append(list(LHS))
+                        temp.append(list(RHS))
+                        #print(temp)
+                        associationRule.append(temp)
+                        temp = []
+                    length = length - 1
+    return associationRule
 
-    # !!add # below if don't want csv file
-    a.writefreqpat()
-#    stop1=time.time()
-#    print ('apriori takes',(stop1-begin1))
+#   This function creates the final output of the algorithm by taking Association Rules as the input
+def aprioriOutput(rules, dataSet, minimumSupport, minimumConfidence):
+    returnAprioriOutput = []
+    for rule in rules:
+        supportOfX = 0
+        supportOfXinPercentage = 0
+        supportOfXandY = 0
+        supportOfXandYinPercentage = 0
+        for transaction in dataSet:
+            if set(rule[0]).issubset(set(transaction)):
+                supportOfX = supportOfX + 1
+            if set(rule[0] + rule[1]).issubset(set(transaction)):
+                supportOfXandY = supportOfXandY + 1
+        supportOfXinPercentage = (supportOfX * 1.0 / noOfTransactions) * 100
+        supportOfXandYinPercentage = (supportOfXandY * 1.0 / noOfTransactions) * 100
+        confidence = (supportOfXandYinPercentage / supportOfXinPercentage) * 100
+        if confidence >= minimumConfidence:
+            supportOfXAppendString = "Support Of X: " + str(round(supportOfXinPercentage, 2))
+            supportOfXandYAppendString = "Support of X & Y: " + str(round(supportOfXandYinPercentage))
+            confidenceAppendString = "Confidence: " + str(round(confidence))
+
+            returnAprioriOutput.append(supportOfXAppendString)
+            returnAprioriOutput.append(supportOfXandYAppendString)
+            returnAprioriOutput.append(confidenceAppendString)
+            returnAprioriOutput.append(rule)
+
+    return returnAprioriOutput
+
+#   These few statements are taking input from the user 
+#       Such as:
+#           Select a database to mine the data
+#           Minimum Support
+#           Mnimum Confidence
+minimumSupport = input('Enter minimum Support: ')
+minimumConfidence = input('Enter minimum Confidence: ')
+print("\n") 
+fileName = ""
+
+
+fileName = "adult_data.csv"
+
+minimumSupport = int(minimumSupport)
+minimumConfidence = int(minimumConfidence)
+
+nonFrequentSets = []
+allFrequentItemSets = []
+tempFrequentItemSets = []
+dataSet = []
+eleminatedItemsArray = []
+noOfTransactions = 0
+fatherFrequentArray = []
+something = 0
+
+
+#   Reading the data file line by line
+with open(fileName,'r') as fp:
+    lines = fp.readlines()
+
+for line in lines:
+    line = line.rstrip()
+    dataSet.append(line.split(","))
+
+noOfTransactions = len(dataSet)
+
+firstCandidateSet = generateC1(dataSet)
+
+frequentItemSet = generateFrequentItemSet(firstCandidateSet, noOfTransactions, minimumSupport, dataSet, fatherFrequentArray)
+
+associationRules = generateAssociationRule(fatherFrequentArray)
+
+AprioriOutput = aprioriOutput(associationRules, dataSet, minimumSupport, minimumConfidence)
+
+
+counter = 1
+if len(AprioriOutput) == 0:
+    print("There are no association rules for this support and confidence.")
+else:
+    for i in AprioriOutput:
+        if counter == 4:
+            print(str(i[0]) + "------>" + str(i[1]))
+            counter = 0
+        else:
+            print(i, end='  ')
+        counter = counter + 1
