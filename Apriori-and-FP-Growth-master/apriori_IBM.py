@@ -150,7 +150,7 @@ fileName = ""
 if fileNameInput == '1':
     fileName = "adult_data.csv"
 if fileNameInput == '2':
-    fileName = "data_ntrans_10_tlen_50.csv"
+    fileName = "Result.csv"
 
 
 minimumSupport = int(minimumSupport)

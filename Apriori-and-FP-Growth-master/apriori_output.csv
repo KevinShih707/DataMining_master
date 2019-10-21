@@ -1,0 +1,63 @@
+0.953, capital-loss: 0
+0.917, capital-gain: 0
+0.896, native-country: United-States
+0.870, capital-gain: 0,capital-loss: 0
+0.854, race: White
+0.854, capital-loss: 0,native-country: United-States
+0.820, capital-gain: 0,native-country: United-States
+0.813, race: White,capital-loss: 0
+0.787, race: White,native-country: United-States
+0.780, race: White,capital-gain: 0
+0.778, capital-gain: 0,capital-loss: 0,native-country: United-States
+0.759, salary: <=50K
+0.748, race: White,capital-loss: 0,native-country: United-States
+0.739, race: White,capital-gain: 0,capital-loss: 0
+0.736, salary: <=50K,capital-loss: 0
+0.727, salary: <=50K,capital-gain: 0
+0.718, race: White,capital-gain: 0,native-country: United-States
+0.704, salary: <=50K,capital-gain: 0,capital-loss: 0
+0.697, workclass: Private
+0.679, capital-gain: 0,capital-loss: 0,native-country: United-States,race: White
+0.676, salary: <=50K,native-country: United-States
+0.669, sex: Male
+0.667, workclass: Private,capital-loss: 0
+0.655, salary: <=50K,capital-loss: 0,native-country: United-States
+0.647, salary: <=50K,capital-gain: 0,native-country: United-States
+0.644, workclass: Private,capital-gain: 0
+0.636, salary: <=50K,race: White
+0.634, sex: Male,capital-loss: 0
+0.626, capital-gain: 0,capital-loss: 0,native-country: United-States,salary: <=50K
+0.618, workclass: Private,native-country: United-States
+0.616, salary: <=50K,race: White,capital-loss: 0
+0.614, workclass: Private,capital-gain: 0,capital-loss: 0
+0.608, salary: <=50K,race: White,capital-gain: 0
+0.605, sex: Male,capital-gain: 0
+0.599, sex: Male,native-country: United-States
+0.596, workclass: Private,race: White
+0.591, workclass: Private,capital-loss: 0,native-country: United-States
+0.589, race: White,sex: Male
+0.588, capital-gain: 0,capital-loss: 0,salary: <=50K,race: White
+0.581, salary: <=50K,race: White,native-country: United-States
+0.570, workclass: Private,capital-gain: 0,native-country: United-States
+0.570, capital-gain: 0,sex: Male,capital-loss: 0
+0.569, workclass: Private,race: White,capital-loss: 0
+0.567, sex: Male,capital-loss: 0,native-country: United-States
+0.562, capital-loss: 0,native-country: United-States,salary: <=50K,race: White
+0.557, race: White,sex: Male,capital-loss: 0
+0.556, capital-gain: 0,native-country: United-States,salary: <=50K,race: White
+0.549, workclass: Private,race: White,capital-gain: 0
+0.545, workclass: Private,salary: <=50K
+0.544, workclass: Private,race: White,native-country: United-States
+0.542, capital-gain: 0,capital-loss: 0,native-country: United-States,workclass: Private
+0.542, race: White,sex: Male,native-country: United-States
+0.540, sex: Male,capital-gain: 0,native-country: United-States
+0.537, capital-loss: 0,salary: <=50K,capital-gain: 0,native-country: United-States,race: White
+0.531, capital-gain: 0,race: White,sex: Male
+0.529, workclass: Private,salary: <=50K,capital-loss: 0
+0.523, workclass: Private,salary: <=50K,capital-gain: 0
+0.522, capital-gain: 0,capital-loss: 0,workclass: Private,race: White
+0.519, capital-loss: 0,native-country: United-States,workclass: Private,race: White
+0.512, sex: Male,capital-loss: 0,native-country: United-States,race: White
+0.508, sex: Male,capital-gain: 0,native-country: United-States,capital-loss: 0
+0.508, capital-gain: 0,capital-loss: 0,workclass: Private,salary: <=50K
+0.500, capital-gain: 0,native-country: United-States,workclass: Private,race: White

@@ -10,7 +10,7 @@ import time
 
 class fp:
     def __init__(self, minimum_support):
-        self.input_file = 'adult_data.csv'
+        self.input_file = 'Result.csv'
         self.minimum_support = minimum_support
 
     def run(self):
@@ -46,6 +46,7 @@ class fp:
                 lines[11] = 'capital-loss:'+lines[11]
                 lines[12] = 'hrs-per-week:'+lines[12]
                 lines[13] = 'native-country:'+lines[13]
+                lines[14] = 'salary:'+lines[14]
                 yield lines
 
     def find_frequent_itemsets(self,transactions,include_support=False):

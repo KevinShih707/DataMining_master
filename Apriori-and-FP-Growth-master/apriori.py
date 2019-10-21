@@ -17,24 +17,25 @@ class Apriori:
         self.enlarged = {}
     
     def _readFile(self):
-        with open(self.input_file, 'rU') as f:
+        with open(self.input_file, 'r') as f:
             for line in f:
                 #print(line)
                 lines = line.strip().split(',')
                 lines[0] = 'age:'+lines[0]
                 lines[1] = 'workclass:'+lines[1]
                 lines[2] = 'fnlwgt:'+lines[2]
-                # lines[3] = 'education:'+lines[3]
-                # lines[4] = 'ed_num:'+lines[4]
-                # lines[5] = 'marital-status:'+lines[5]
-                # lines[6] = 'occupation:'+lines[6]
-                # lines[7] = 'relationship:'+lines[7]
-                # lines[8] = 'race:'+lines[8]
-                # lines[9] = 'sex:'+lines[9]
-                # lines[10] = 'capital-gain:'+lines[10]
-                # lines[11] = 'capital-loss:'+lines[11]
-                # lines[12] = 'hrs-per-week:'+lines[12]
-                # lines[13] = 'native-country:'+lines[13]
+                lines[3] = 'education:'+lines[3]
+                lines[4] = 'ed_num:'+lines[4]
+                lines[5] = 'marital-status:'+lines[5]
+                lines[6] = 'occupation:'+lines[6]
+                lines[7] = 'relationship:'+lines[7]
+                lines[8] = 'race:'+lines[8]
+                lines[9] = 'sex:'+lines[9]
+                lines[10] = 'capital-gain:'+lines[10]
+                lines[11] = 'capital-loss:'+lines[11]
+                lines[12] = 'hrs-per-week:'+lines[12]
+                lines[13] = 'native-country:'+lines[13]
+                lines[14] = 'salary:'+lines[14]
                 yield lines
                 
     def find_C1(self):
@@ -110,7 +111,7 @@ class Apriori:
 
 if __name__ == '__main__':
 #    begin1=time.time()
-    input_file = 'data_ntrans_10_tlen_50.csv'
+    input_file = 'adult_data.csv'
     
     #!!you can change into any number in (0,1)
     min_sup = 0.5
