@@ -4,10 +4,11 @@ import pandas as pd
 import math
 import copy
 
-dataset = pd.read_csv('tennis.csv')
-X = dataset.iloc[:, 1:].values
+dataset = pd.read_csv('light.csv')
+X = dataset.iloc[:, 0:].values
+print(X)
 # print(X)
-attribute = ['outlook', 'temp', 'humidity', 'wind']
+attribute = ['studytime', 'failures', 'grade']
 
 
 class Node(object):
@@ -24,7 +25,7 @@ def findEntropy(data, rows):
     idx = len(data[0]) - 1
     entropy = 0
     for i in rows:
-        if data[i][idx] == 'Yes':
+        if data[i][idx] == 1:
             yes = yes + 1
         else:
             no = no + 1
@@ -68,7 +69,7 @@ def findMaxGain(data, rows, columns):
             no = 0
             for k in rows:
                 if data[k][j] == key:
-                    if data[k][-1] == 'Yes':
+                    if data[k][-1] == '1':
                         yes = yes + 1
                     else:
                         no = no + 1
@@ -138,8 +139,10 @@ def traverse(root):
 
 
 def calculate():
-    rows = [i for i in range(0, 14)]
-    columns = [i for i in range(0, 4)]
+    rows = [i for i in range(0, 49)]
+    columns = [i for i in range(0, 3)]
+    print(columns)
+    print(rows)
     root = buildTree(X, rows, columns)
     root.decision = 'Start'
     traverse(root)
