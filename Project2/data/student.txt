@@ -1,3 +1,25 @@
+Selected attributes:
+4.  address("U"urban or "R"rural)
+6.  Pstatus("T"living together, "A"apart)
+7.  Medu(0-4)
+8.  Fedu(0-4)
+13. traveltime
+14. studytime
+15. failures
+16. schoolsup
+17. famsup
+18. paid
+19. activities
+21. higher
+22. internet
+23. romantic
+24. famrel
+25. freetime
+26. goout
+27. Dalc
+29. healthy
+30. absences
+
 # Attributes for both student-mat.csv (Math course) and student-por.csv (Portuguese language course) datasets:
 1 school - student's school (binary: "GP" - Gabriel Pereira or "MS" - Mousinho da Silveira)
 2 sex - student's sex (binary: "F" - female or "M" - male)
